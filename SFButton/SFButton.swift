@@ -20,8 +20,7 @@ public class SFButton : UIControl {
         didSet {
             if currentImage != nil ||
                 (currentTitle != nil || currentAttributedTitle != nil) {
-                invalidateIntrinsicContentSize()
-                setNeedsLayout()
+                invalidateLayout()
             }
         }
     }
@@ -31,8 +30,7 @@ public class SFButton : UIControl {
         didSet {
             if currentImage != nil ||
                 (currentTitle != nil || currentAttributedTitle != nil) {
-                invalidateIntrinsicContentSize()
-                setNeedsLayout()
+                invalidateLayout()
             }
         }
     }
@@ -41,8 +39,7 @@ public class SFButton : UIControl {
         didSet {
             if currentImage != nil ||
                (currentTitle != nil || currentAttributedTitle != nil) {
-                invalidateIntrinsicContentSize()
-                setNeedsLayout()
+                invalidateLayout()
             }
         }
     }
@@ -306,6 +303,7 @@ public class SFButton : UIControl {
         attributedTitleMap.removeValue(forKey: state.rawValue)
         titleMap[state.rawValue] = title
         titleLabel.text = currentTitle
+        invalidateLayout()
     }
 
     @objc(setTitleColor:forState:)
@@ -319,18 +317,25 @@ public class SFButton : UIControl {
         titleMap.removeValue(forKey: state.rawValue)
         attributedTitleMap[state.rawValue] = attributedTitle
         titleLabel.attributedText = currentAttributedTitle
+        invalidateLayout()
     }
 
     private func updateCurrentState() {
         imageView.image = currentImage
         backgroundImageView.image = currentBackgroundImage
 
-        let title = currentTitle
-        if title != nil {
+        if let title = currentTitle {
             titleLabel.text = title
             titleLabel.textColor = currentTitleColor
         } else if let attributedTitle = currentAttributedTitle {
             titleLabel.attributedText = attributedTitle
         }
+
+        invalidateLayout()
+    }
+
+    private func invalidateLayout() {
+        invalidateIntrinsicContentSize()
+        setNeedsLayout()
     }
 }
