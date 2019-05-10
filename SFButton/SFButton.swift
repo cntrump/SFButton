@@ -254,22 +254,9 @@ public class SFButton : UIControl {
     }
 
     public override func sizeThatFits(_ size: CGSize) -> CGSize {
-        var fittingSize = super.sizeThatFits(size)
-        let expectedSize = intrinsicContentSize
-
-        if size.width <= 0 || size.width == .greatestFiniteMagnitude  {
-            fittingSize.width = expectedSize.width
-        } else {
-            fittingSize.width = min(expectedSize.width, size.width)
-        }
-
-        if size.height <= 0 || size.height == .greatestFiniteMagnitude  {
-            fittingSize.height = expectedSize.height
-        } else {
-            fittingSize.height = min(expectedSize.height, size.height)
-        }
-
-        return fittingSize
+        super.sizeThatFits(size)
+        
+        return intrinsicContentSize
     }
 
     public override func continueTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
