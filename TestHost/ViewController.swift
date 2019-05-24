@@ -14,7 +14,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
 
         let button = makeButton()
-        button.space = 10
+        button.spacing = 10
         button.contentInset = UIEdgeInsets(top: 10, left: 5, bottom: 10, right: 5)
         button.setTitle("direction: row", for: .normal)
         view.addSubview(button)
@@ -25,7 +25,7 @@ class ViewController: UIViewController {
             ])
 
         let button2 = makeButton()
-        button2.space = 10
+        button2.spacing = 10
         button2.contentInset = UIEdgeInsets(top: 10, left: 5, bottom: 10, right: 5)
         button2.direction = .rowReverse
         button2.setTitle("direction: rowReverse", for: .normal)
@@ -37,7 +37,7 @@ class ViewController: UIViewController {
             ])
 
         let button3 = makeButton()
-        button3.space = 5
+        button3.spacing = 5
         button3.contentInset = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
         button3.direction = .column
         button3.setTitle("direction: column", for: .normal)
@@ -49,7 +49,7 @@ class ViewController: UIViewController {
             ])
 
         let button4 = makeButton()
-        button4.space = 5
+        button4.spacing = 5
         button4.contentInset = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
         button4.direction = .columnReverse
         button4.setTitle("direction: columnReverse", for: .normal)

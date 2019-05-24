@@ -26,7 +26,7 @@ public class SFButton : UIControl {
     }
 
     /// space between image and title
-    @objc open var space: CGFloat = 0 {
+    @objc open var spacing: CGFloat = 0 {
         didSet {
             if currentImage != nil ||
                 (currentTitle != nil || currentAttributedTitle != nil) {
@@ -171,7 +171,7 @@ public class SFButton : UIControl {
             hasTitle = true
         }
 
-        let offset = (hasImage && hasTitle ? space : 0)
+        let offset = (hasImage && hasTitle ? spacing : 0)
 
         var w: CGFloat = 0
         var h: CGFloat = 0
@@ -232,7 +232,7 @@ public class SFButton : UIControl {
                 hasTitle = true
             }
 
-            let offset: CGFloat = (hasImage && hasTitle ? space : 0)
+            let offset: CGFloat = (hasImage && hasTitle ? spacing : 0)
             var w: CGFloat = 0, h: CGFloat = 0
 
             switch direction {
