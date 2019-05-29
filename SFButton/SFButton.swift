@@ -88,6 +88,10 @@ public class SFButton : UIControl {
     @objc open var currentTitle: String? {
         get {
             let title: String? = titleMap[state.rawValue]
+
+            let element = accessibilityElement(at: 0) as! UIAccessibilityElement
+            element.accessibilityValue = title
+
             if title != nil {
                 return title
             }
@@ -115,6 +119,9 @@ public class SFButton : UIControl {
     @objc open var currentAttributedTitle: NSAttributedString? {
         get {
             let attributedTitle: NSAttributedString? = attributedTitleMap[state.rawValue]
+            let element = accessibilityElement(at: 0) as! UIAccessibilityElement
+            element.accessibilityValue = attributedTitle?.string
+
             if attributedTitle != nil {
                 return attributedTitle
             }
@@ -324,5 +331,49 @@ public class SFButton : UIControl {
     private func invalidateLayout() {
         invalidateIntrinsicContentSize()
         setNeedsLayout()
+    }
+
+    // MARK: - UIAccessibility
+    private var _accessibleElements: NSMutableArray = NSMutableArray()
+    private var accessibleElements: NSMutableArray {
+        get {
+            if (_accessibleElements.count == 0) {
+                let element = UIAccessibilityElement(accessibilityContainer: self)
+                element.accessibilityTraits = .button
+                _accessibleElements.add(element)
+            }
+
+            let element = _accessibleElements.firstObject as! UIAccessibilityElement
+            element.accessibilityFrame = superview?.convert(frame, to: nil) ?? .zero
+
+            return _accessibleElements
+        }
+    }
+
+    private var _isAccessibilityElement: Bool = false
+    public override var isAccessibilityElement: Bool {
+        set {
+            _isAccessibilityElement = newValue
+        }
+
+        get {
+            return false
+        }
+    }
+
+    public override func accessibilityElementCount() -> Int {
+        return accessibleElements.count
+    }
+
+    public override func accessibilityElement(at index: Int) -> Any? {
+        guard accessibleElements.count > index else {
+            return nil
+        }
+
+        return accessibleElements[index]
+    }
+
+    public override func index(ofAccessibilityElement element: Any) -> Int {
+        return accessibleElements.index(of: element)
     }
 }
