@@ -284,6 +284,7 @@ public class SFButton : UIControl {
     public func setImage(_ image: UIImage?, for state: UIControl.State) {
         imageMap[state.rawValue] = image
         imageView.image = currentImage
+        invalidateLayout()
     }
 
     @objc(setBackgroundImage:forState:)
